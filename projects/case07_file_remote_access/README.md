@@ -107,7 +107,7 @@ graph TB
         VPNSV["🆕 vpn1(VPNサーバー)<br/>OpenVPN<br/>192.168.100.40"]
     end
 
-    HQRT["HQ-RT01(コアL3スイッチ)<br/>server側SVI: 192.168.100.1<br/>🆕 10.8.0.0/24宛の経路を追加"]
+    HQRT["HQ-RT01(コアL3スイッチ)<br/>server側Gi0/1: 192.168.100.1<br/>🆕 10.8.0.0/24宛の経路を追加"]
 
     subgraph HQLAN["本社LAN 192.168.10.0/24"]
         PC["本社PC群"]
@@ -142,7 +142,7 @@ VPNサーバーを、案件06のWebサーバーのようにDMZへ置かず、あ
 
 | ホスト | IPアドレス | 役割 | 登場案件 |
 |---|---|---|---|
-| L3SW/FWのSVI | 192.168.100.1 | サーバーセグメントのゲートウェイ | 案件03 |
+| L3SW/FWのインターフェース(Gi0/1) | 192.168.100.1 | サーバーセグメントのゲートウェイ | 案件03 |
 | DHCP/DNSサーバー | 192.168.100.10 | 案件03で構築 | 案件03〜 |
 | ファイルサーバー | 192.168.100.20 | 案件07で構築(Samba) | 案件07〜 |
 | 監視サーバー | 192.168.100.30 | 案件08で構築(Zabbix等・本案件では未使用) | 案件08〜 |
@@ -217,7 +217,8 @@ $ ip a show enp0s3
 
 案件03で構築した社内DNS(`ns1`、`192.168.100.10`)のゾーンファイルに、新しい2台のAレコードを
 追加します。IPアドレスではなくホスト名で覚えられるようにしておくのは、案件03で整えた仕組みを
-使い倒すという意味でも理にかなっています。
+使い倒すという意味でも理にかなっています。あわせて、案件03で作成した逆引きゾーンにもPTRレコードを
+追加し、正引き・逆引きの両方が引けるようにしておきます。
 
 ```conf
 # /etc/bind/zones/db.sample-shoji.local (抜粋・追記分)
@@ -225,10 +226,17 @@ fs1     IN      A       192.168.100.20
 vpn1    IN      A       192.168.100.40
 ```
 
-SOAレコードのSerial値を1つ増やしてから、設定を反映します。
+```conf
+# /etc/bind/zones/db.192.168.100 (抜粋・追記分)
+20      IN      PTR     fs1.sample-shoji.local.
+40      IN      PTR     vpn1.sample-shoji.local.
+```
+
+両方のゾーンファイルでSOAレコードのSerial値を1つ増やしてから、設定を反映します。
 
 ```bash
 $ sudo named-checkzone sample-shoji.local /etc/bind/zones/db.sample-shoji.local
+$ sudo named-checkzone 100.168.192.in-addr.arpa /etc/bind/zones/db.192.168.100
 $ sudo systemctl reload bind9
 ```
 
