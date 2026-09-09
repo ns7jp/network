@@ -350,11 +350,16 @@ $ sudo systemctl enable --now zabbix-agent2
 監視通信も届かないため、Zabbixエージェントが使うTCP10050番ポート(パッシブチェック)と、
 死活確認用のICMP(ping)だけを、送信元をMONSV01に限定して許可します。
 
+firewalldのゾーンは、通信を受け取った側(ここではWEBSV01が属する`dmz`ゾーンではなく、
+MONSV01からの通信を受け取る入口インターフェース)に対して設定します。案件05のとおり、
+サーバーセグメント(MONSV01がいる`192.168.100.0/24`)はFW-HQ01の`internal`ゾーン
+(`enp0s3`)に割り当てられているため、ルールは`internal`ゾーンに追加します。
+
 ```bash
-$ sudo firewall-cmd --zone=dmz \
+$ sudo firewall-cmd --zone=internal \
     --add-rich-rule='rule family="ipv4" source address="192.168.100.30" port port="10050" protocol="tcp" accept' \
     --permanent
-$ sudo firewall-cmd --zone=dmz \
+$ sudo firewall-cmd --zone=internal \
     --add-rich-rule='rule family="ipv4" source address="192.168.100.30" protocol="icmp" accept' \
     --permanent
 $ sudo firewall-cmd --reload
@@ -734,7 +739,7 @@ $ ls -la /var/log/sample-shoji/
 | 症状 | 考えられる原因 | 対処法 |
 |---|---|---|
 | Zabbixのホストが「取得不可」(赤)のまま変わらない | 監視対象側で`zabbix-agent2`が起動していない、または`zabbix_agent2.conf`の`Server`/`ServerActive`のIPアドレスが誤っている | 対象サーバーで`systemctl status zabbix-agent2`を確認し、設定ファイルのIPアドレスを見直して`systemctl restart zabbix-agent2` |
-| WEBSV01だけ監視データが取得できない(他の2台は正常) | FW-HQ01に追加したrich-ruleが`--permanent`のまま`--reload`されていない、または送信元IPアドレスの指定を誤っている | FW-HQ01で`firewall-cmd --zone=dmz --list-rich-rules`を確認し、`--reload`を忘れず実行する |
+| WEBSV01だけ監視データが取得できない(他の2台は正常) | FW-HQ01に追加したrich-ruleが`--permanent`のまま`--reload`されていない、または送信元IPアドレスの指定を誤っている | FW-HQ01で`firewall-cmd --zone=internal --list-rich-rules`を確認し、`--reload`を忘れず実行する |
 | keepalived起動後もVIPがどちらのノードにも表示されない、または両方に表示される | 2台の`virtual_router_id`または`auth_pass`が一致していない | `HQ-GW01`・`HQ-GW02`双方の`keepalived.conf`を突き合わせ、`virtual_router_id`と`auth_pass`を完全に一致させる |
 | フェイルオーバー後、pingが数十秒以上戻ってこない | `advert_int`(アドバタイズ間隔)が長すぎる、または`unicast_peer`のIPアドレス指定が誤っている | `advert_int`を1秒程度に短縮する。`journalctl -u keepalived`でVRRPアドバタイズを正常に受信できているか確認する |
 | 差分バックアップを重ねるうちにディスク使用量がどんどん増えていく | `--link-dest`の参照パスが誤っている(異なるファイルシステム間ではハードリンクが機能しない)、または保持世代数を制限する仕組みがない | `--link-dest`の相対パスがフルバックアップの実際の格納場所と一致しているか確認する。一定世代を超えた古いバックアップを`find`コマンド等で自動削除する仕組みを追加する |
