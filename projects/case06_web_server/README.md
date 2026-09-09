@@ -341,7 +341,10 @@ HTTPSアクセスをWEBSV01へ転送するルールを追加します。firewall
 最初から組み込まれているのが特徴です。
 
 まず、DMZゾーンでHTTP/HTTPSサービスへのアクセスを許可します(初期状態のdmzゾーンは、デフォルトの
-SSHなど最小限のサービスしか許可していません)。
+SSHなど最小限のサービスしか許可していません)。なお、案件05でSSHを無効化したのはインターネットに
+直接さらされる`external`ゾーンであり、`dmz`ゾーンのSSHはWEBSV01を社内側から保守するために残して
+おく想定です。`external`→`dmz`方向の通信はDNAT設定分(443番のみ)しか許可していないため、この
+SSHがインターネットから到達可能になるわけではありません。
 
 ```bash
 $ sudo firewall-cmd --zone=dmz --add-service=http --permanent

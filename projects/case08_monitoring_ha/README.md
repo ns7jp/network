@@ -244,9 +244,30 @@ network:
 ```
 
 ```bash
+$ sudo hostnamectl set-hostname monsv01
 $ sudo netplan apply
 $ ip a show enp0s3
     inet 192.168.100.30/24 brd 192.168.100.255 scope global enp0s3
+```
+
+案件03・07と同様に、社内DNS(`ns1`)へ正引き・逆引きの両方を登録しておきます。ホスト名で
+`monsv01.sample-shoji.local`としてアクセスできるようにしておくと、この後のバックアップ設定
+(STEP7)でもIPアドレスを直書きせずに済みます。
+
+```conf
+# /etc/bind/zones/db.sample-shoji.local (抜粋・追記分)
+monsv01 IN      A       192.168.100.30
+```
+
+```conf
+# /etc/bind/zones/db.192.168.100 (抜粋・追記分)
+30      IN      PTR     monsv01.sample-shoji.local.
+```
+
+```bash
+$ sudo named-checkzone sample-shoji.local /etc/bind/zones/db.sample-shoji.local
+$ sudo named-checkzone 100.168.192.in-addr.arpa /etc/bind/zones/db.192.168.100
+$ sudo systemctl reload bind9
 ```
 
 ### STEP2: Zabbix Serverをインストールする
