@@ -8,6 +8,13 @@
 
 ---
 
+## このリポジトリの位置づけ
+
+- **学習用の副作品です。** 主作品は [ns7jp/server](https://github.com/ns7jp/server) で、本人が手元のVMで操作した記録はそちらにまとめています。
+- **AI支援で作成した部分が大きいです。** 教材の多くは、AIツール（Claude Code・OpenAI Codex）の支援で作成しました。2026-09-28 時点で確認できる範囲では、main へのプルリクエストのマージ6件のうち5件は `claude/…`、1件は `codex/…` のブランチからのもので、マージを除くコミット7件のうち5件は作者が `Claude` です（作者が島田則幸の2件は、最初の LICENSE・README の作成と `codex/…` ブランチの1件）。
+- **本人による実行記録:** なし。全9案件とも、本人が Packet Tracer や VM で実施した記録はまだありません（下の表のとおり）。各案件の面接用文例は、実施後に使う想定回答です。
+- **主作品との関係:** 案件03（DHCP/DNS）・案件08（監視）などは、主作品の [DHCP 構築案件パック](https://github.com/ns7jp/server/blob/main/docs/build-package-dhcp/README.md)・[Zabbix 構築案件パック](https://github.com/ns7jp/server/blob/main/docs/build-package-zabbix/README.md)と扱うテーマが重なります。この教材は Cisco 機器の設定を中心にした別の構成で、主作品の記録の代わりにはなりません。
+
 ## 採用ご担当者様へ：成果物と実施状況
 
 **公開している成果物は、架空案件9件の設計・構築・確認手順をまとめた教材です。** 2026年9月11日時点の公開資料で確認できる範囲を示します。
