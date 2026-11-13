@@ -1,71 +1,25 @@
-# 🌐 ネットワーク基礎演習案件パック
+# ネットワーク基礎演習案件パック
 
-**未経験からサーバー構築エンジニアを目指す人のための、実務を模した学習型ポートフォリオ**
+<a id="-ネットワーク基礎演習案件パック"></a>
 
-![status](https://img.shields.io/badge/status-learning_materials-blue)
-![level](https://img.shields.io/badge/level-beginner--friendly-brightgreen)
-![topic](https://img.shields.io/badge/topics-network%20%7C%20server%20%7C%20infra-orange)
+架空の企業ネットワークを題材に、要件 → 設計 → 構築 → 動作確認 → トラブル対応を学ぶ **全9案件の教材**です。Cisco 機器の設定例と、Linux サーバーの演習を収録しています。
 
----
+> **更新停止（参考資料）**：2026-10-18 から更新を停止しています。教材・実施状況は当時のものです。採用の判断には、主作品 [server](https://github.com/ns7jp/server) の本人操作の記録をご覧ください。
 
-> **更新停止（参考資料）**：2026-10-18 から、このリポジトリの更新を止めて、参考資料として残しています。採用の判断には、主作品 [server](https://github.com/ns7jp/server) の記録をご覧ください。中身は 2026-10-18 時点のままです。
+<a id="このリポジトリの位置づけ"></a><a id="採用ご担当者様へ成果物と実施状況"></a><a id="-このリポジトリについて"></a><a id="-採用ご担当者様へ"></a>
 
-## このリポジトリの位置づけ
+## この教材で確認できること
 
-- **学習用の副作品です。** 主作品は [ns7jp/server](https://github.com/ns7jp/server) で、本人が手元のVMで操作した記録はそちらにまとめています。
-- **AI支援で作成した部分が大きいです。** 教材の多くは、AIツール（Claude Code・OpenAI Codex）の支援で作成しました。2026-09-28 時点で確認できる範囲では、main へのプルリクエストのマージ6件のうち5件は `claude/…`、1件は `codex/…` のブランチからのもので、マージを除くコミット7件のうち5件は作者が `Claude` です（作者が島田則幸の2件は、最初の LICENSE・README の作成と `codex/…` ブランチの1件）。
-- **本人による実行記録:** なし。全9案件とも、本人が Packet Tracer や VM で実施した記録はまだありません（下の表のとおり）。各案件の面接用文例は、実施後に使う想定回答です。
-- **主作品との関係:** 案件03（DHCP/DNS）・案件08（監視）などは、主作品の [DHCP 構築案件パック](https://github.com/ns7jp/server/blob/main/docs/build-package-dhcp/README.md)・[Zabbix 構築案件パック](https://github.com/ns7jp/server/blob/main/docs/build-package-zabbix/README.md)と扱うテーマが重なります。この教材は Cisco 機器の設定を中心にした別の構成で、主作品の記録の代わりにはなりません。
+- **AI 支援で作成した学習用の副作品**です。9案件の構成図、設定例、確認方法、トラブルの例を用意しています。[AI 支援・教材の背景](docs/repository-guide.md)
+- **本人が Packet Tracer や VM で実施した記録は掲載していません。** 全9案件の実施状況と本人の理解度は未確認です。掲載コマンド・期待出力・面接用の文例は、本人の実績や習得の証明ではありません。
+- 社名・依頼・障害シナリオは架空です。[server の実行記録](https://github.com/ns7jp/server/blob/main/docs/evidence/README.md)は別構成の演習で、この9案件の実行証拠とは区別しています。
 
-## 採用ご担当者様へ：成果物と実施状況
-
-**公開している成果物は、架空案件9件の設計・構築・確認手順をまとめた教材です。** 2026年9月11日時点の公開資料で確認できる範囲を示します。
-
-| 区分 | 現在の状態 | 確認できる内容 |
-| --- | --- | --- |
-| 設計・演習教材 | 作成済み | 全9案件の構成図、設定例、確認方法、トラブルの例 |
-| 本人による構築・動作確認 | 実行証跡未掲載（実施状況未確認） | 掲載コマンド・期待出力だけでは、本人が全9案件を実施したとは判定できません |
-| 本人による判断・説明 | 説明記録未掲載 | 「得られるスキル」や面接文例は学習目標・記入例であり、本人の習得確認ではありません |
-| 実顧客・本番環境での運用 | 実績として未確認 | 架空の会社・依頼・障害シナリオを用いた演習です |
-
-短時間で見る場合は、[案件01の基礎手順](projects/case01_lan_design/README.md) → [案件09の統合設計・試験項目](projects/case09_capstone/README.md) → [本人実績の残し方](docs/04_portfolio_presentation_guide.md) の順にご覧ください。本人が別構成で実施したサーバー演習は、[serverの検証証跡台帳](https://github.com/ns7jp/server/blob/main/docs/evidence/README.md)から確認できます。本教材9案件の実行証拠とは区別しています。
-
----
-
-## 📌 このリポジトリについて
-
-このリポジトリは、**未経験からインフラ・サーバー構築エンジニアへの転職を目指す人**が、
-ネットワークとサーバー構築の基礎を、要件・設計・手順・確認方法の順に学ぶための
-ポートフォリオ教材です。実行結果と本人の説明を追加することで、習得した範囲を伝えられます。
-
-ただの用語集や暗記ノートではなく、**架空のIT企業に所属する新人エンジニアとして、
-架空の取引先企業から届く「案件(お仕事)」を1つずつ解決していく**というストーリー形式を
-採用しています。実際の現場で使われる「要件定義 → 設計 → 構築 → 動作確認 → トラブル対応」
-という流れをそのまま体験できるように作られています。
-
-> 💡 **初心者の方へ**：このパックは「知識ゼロから読んでも迷わない」ことを最優先に設計しています。
-> 各案件は独立した教材としても読めますが、`案件01 → 案件09` の順に読み進めると、
-> 1つの会社のネットワークが少しずつ成長していく様子を体験できます。
-
----
-
-## 🎬 想定シナリオ
-
-| 項目 | 設定 |
-|---|---|
-| あなたの立場 | IT保守運用会社「**フュージョンITソリューションズ**」に入社したばかりの新人インフラエンジニア |
-| 取引先企業 | 従業員10名 → 50名へと成長していく商社「**株式会社サンプル商事**」 |
-| あなたの仕事 | 成長する取引先から寄せられる、ネットワーク・サーバーに関する相談(案件)に、先輩の指導を受けながら1つずつ対応していく |
-
-登場人物や社名はすべて架空のものです。IPアドレスは実在の組織を指さないよう、
-プライベートIPアドレスと `RFC 5737` で予約された検証用アドレス(`203.0.113.0/24` など)のみを使用しています。
-
----
+教材の内容を確認する場合は、[案件01の基礎手順](projects/case01_lan_design/README.md)と[案件09の統合設計・試験項目](projects/case09_capstone/README.md)から読めます。実施後の記録方法は[本人実績の残し方](docs/04_portfolio_presentation_guide.md)にまとめています。
 
 ## 🗂️ 案件一覧(全9案件)
 
 | No. | 案件名 | 学べること | 難易度 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | [案件01](projects/case01_lan_design/README.md) | 本社オフィスLANの設計・構築 | IPアドレス設計、L2スイッチ、ケーブリング、疎通確認の基礎 | ★☆☆☆☆ |
 | [案件02](projects/case02_wan_routing/README.md) | 本社-支社間ルーティング構築 | VLSM、静的ルーティング、ルーティングテーブル | ★★☆☆☆ |
 | [案件03](projects/case03_dhcp_dns/README.md) | DHCP/DNSサーバー構築 | IPアドレス自動配布、名前解決、Linuxサーバー構築の基礎 | ★★☆☆☆ |
@@ -76,76 +30,27 @@
 | [案件08](projects/case08_monitoring_ha/README.md) | 監視・冗長化による可用性向上 | 死活監視、VRRP冗長化、バックアップ運用 | ★★★★☆ |
 | [案件09](projects/case09_capstone/README.md) | 【集大成】第二支社インフラ統合構築 | 案件01〜08の総合実践、設計書一式の作成 | ★★★★★ |
 
-進め方の詳細は [docs/00_roadmap.md](docs/00_roadmap.md) を参照してください。
-
----
+進め方の詳細は [学習ロードマップ](docs/00_roadmap.md) を参照してください。
 
 ## 📖 ドキュメント一覧
 
 | ドキュメント | 内容 |
-|---|---|
-| [docs/00_roadmap.md](docs/00_roadmap.md) | 学習ロードマップ、案件の依存関係、想定学習時間 |
-| [docs/01_glossary.md](docs/01_glossary.md) | 初心者向け用語集(ネットワーク・サーバー用語をやさしく解説) |
-| [docs/02_environment_setup.md](docs/02_environment_setup.md) | 演習環境の作り方(Packet Tracer / VirtualBox など) |
-| [docs/03_ip_address_design.md](docs/03_ip_address_design.md) | 全案件共通のIPアドレス設計書 |
-| [docs/04_portfolio_presentation_guide.md](docs/04_portfolio_presentation_guide.md) | このポートフォリオを面接・書類選考でどう伝えるか |
+| --- | --- |
+| [学習ロードマップ](docs/00_roadmap.md) | 学習ロードマップ、案件の依存関係、想定学習時間 |
+| [用語集](docs/01_glossary.md) | 初心者向け用語集(ネットワーク・サーバー用語をやさしく解説) |
+| [演習環境の準備](docs/02_environment_setup.md) | 演習環境の作り方(Packet Tracer / VirtualBox など) |
+| [IP アドレス設計](docs/03_ip_address_design.md) | 全案件共通のIPアドレス設計書 |
+| [実績の記録・伝え方](docs/04_portfolio_presentation_guide.md) | このポートフォリオを面接・書類選考でどう伝えるか |
+| [教材の背景・実施状況](docs/repository-guide.md) | AI 支援の内訳、架空シナリオ、教材で扱う技術・環境 |
 
----
+<details>
+<summary>以前の README の節から探す</summary>
 
-## 🧰 教材で扱う技術・環境
+<a id="-想定シナリオ"></a><a id="-教材で扱う技術環境"></a><a id="-ディレクトリ構成"></a>
 
-| 分類 | 使用ツール |
-|---|---|
-| ネットワーク機器シミュレータ | Cisco Packet Tracer |
-| サーバー仮想化 | VirtualBox |
-| サーバーOS | Ubuntu Server / CentOS Stream |
-| 主なミドルウェア | Apache/Nginx, ISC DHCP, BIND9, Samba, OpenSSH, OpenVPN, Zabbix, keepalived |
-| 主なコマンド | ping, traceroute, ip, nslookup/dig, tcpdump, systemctl, iptables/firewalld |
+[想定シナリオ](docs/repository-guide.md#-想定シナリオ)、[技術・環境](docs/repository-guide.md#-教材で扱う技術環境)、[ディレクトリ構成](docs/repository-guide.md#-ディレクトリ構成)は、教材の背景ページへ移しました。
 
-具体的な導入手順は [docs/02_environment_setup.md](docs/02_environment_setup.md) にまとめています。
-
----
-
-## 📁 ディレクトリ構成
-
-```text
-network/
-├── README.md                          # このファイル(ポートフォリオ全体の入口)
-├── docs/                               # 全案件共通のドキュメント
-│   ├── 00_roadmap.md
-│   ├── 01_glossary.md
-│   ├── 02_environment_setup.md
-│   ├── 03_ip_address_design.md
-│   └── 04_portfolio_presentation_guide.md
-└── projects/                           # 案件本体(全9案件)
-    ├── case01_lan_design/README.md
-    ├── case02_wan_routing/README.md
-    ├── case03_dhcp_dns/README.md
-    ├── case04_vlan_segmentation/README.md
-    ├── case05_firewall_nat/README.md
-    ├── case06_web_server/README.md
-    ├── case07_file_remote_access/README.md
-    ├── case08_monitoring_ha/README.md
-    └── case09_capstone/README.md
-```
-
----
-
-## 🙋 採用ご担当者様へ
-
-各案件のREADMEには、以下を必ず記載しています。
-
-- お客様(架空)からの依頼内容と背景
-- 構成図・IPアドレス設計
-- 実際の作業手順(コマンド・設定を含む)
-- 動作確認の方法
-- よくあるトラブルと対処法
-- この案件の学習目標と、実施後に使う面接説明の例
-
-[案件09](projects/case09_capstone/README.md) では教材全体の設計のつながりを確認できます。
-本人の実施範囲・理解度は、実施日・環境・結果と本人の説明を記載した記録で確認します。
-
----
+</details>
 
 ## 📜 ライセンス
 
